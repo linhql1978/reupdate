@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+* {
+	padding: 4px;
+}
+
+.message_error {
+	color: red;
+}
