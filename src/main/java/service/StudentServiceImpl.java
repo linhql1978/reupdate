@@ -25,7 +25,7 @@ public class StudentServiceImpl implements StudentService, Serializable {
 	@Override
 	public Collection<Student> getStudents() {
 		return session
-				.createQuery("select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClass",
+				.createQuery("select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses",
 						Student.class)
 				.list().stream().collect(Collectors.toSet());
 	}

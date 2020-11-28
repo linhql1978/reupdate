@@ -81,12 +81,12 @@ public class Student implements Serializable {
 
 	// ####
 	@OneToMany(mappedBy = "monitor")
-	private Set<DataClass> dataClass;
+	private Set<DataClass> dataClasses;
 
 	public Set<DataClass> getDataClass() {
-		if (dataClass == null)
-			dataClass = new HashSet<>();
-		return dataClass;
+		if (dataClasses == null)
+			dataClasses = new HashSet<>();
+		return dataClasses;
 	}
 	// /####
 

@@ -9,10 +9,12 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import beans_utils.Display;
+import beans_utils.Message;
 import entities.DataClass;
 import entities.DataClassStudent;
 import entities.Student;
-import message.Message;
+import qualifier.AddStudentToDataClassDisplay;
 import qualifier.AddStudentToDataClassMessage;
 import service.DataClassService;
 import service.DataClassStudentService;
@@ -70,6 +72,13 @@ public class ClassManagement implements Serializable {
 	}
 
 	private Student studentToAdd;
+	@Inject
+	@AddStudentToDataClassDisplay
+	private Display displayAddStudent;
+
+	public Display getDisplayAddStudent() {
+		return displayAddStudent;
+	}
 
 	public Student getStudentToAdd() {
 		return studentToAdd;
@@ -85,8 +94,8 @@ public class ClassManagement implements Serializable {
 	@AddStudentToDataClassMessage
 	private Message addStudentToDataClassMessage;
 
-	public String getAddStudentToDataClassMessage() {
-		return addStudentToDataClassMessage.getMessage();
+	public Message getAddStudentToDataClassMessage() {
+		return addStudentToDataClassMessage;
 	}
 
 	public void addStudentToDataClass() {

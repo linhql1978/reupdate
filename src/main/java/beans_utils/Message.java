@@ -1,4 +1,4 @@
-package message;
+package beans_utils;
 
 public interface Message {
 

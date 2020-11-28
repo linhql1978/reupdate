@@ -233,8 +233,12 @@
 					</h:panelGroup>
 					<!--  -->
 					<!-- ############################### -->
-					<h:panelGroup layout="block">
-						<h:commandLink value="Add Student" rendered="false">
+					<h:panelGroup layout="block" id="add_student_btn">
+						<h:commandLink value="Add Student"
+							rendered="#{classManagement.displayAddStudent.check()}">
+							<f:ajax
+								render=":class_management:add_student_btn :class_management:add_student"
+								listener="#{classManagement.displayAddStudent.set(false)}"></f:ajax>
 						</h:commandLink>
 					</h:panelGroup>
 					<!--  -->
@@ -279,7 +283,8 @@
 					<!--  -->
 					<!-- ######################################### -->
 					<h:panelGroup layout="block" id="add_student">
-						<h:panelGroup layout="block" rendered="true">
+						<h:panelGroup layout="block"
+							rendered="#{!classManagement.displayAddStudent.check()}">
 							<h:inputText id="student_to_add"
 								value="#{classManagement.studentToAdd}"
 								converter="studentConverter" size="1">
@@ -290,8 +295,7 @@
 							<h:message styleClass="message_error"
 								for=":class_management:student_to_add" />
 							<h:outputText style="color:red"
-								rendered="#{classManagement.addStudentToDataClassMessage!=''}"
-								value="#{classManagement.addStudentToDataClassMessage}" />
+								value="#{classManagement.addStudentToDataClassMessage.getMessage()}" />
 							<br />
 						</h:panelGroup>
 					</h:panelGroup>
@@ -300,6 +304,8 @@
 						<h:commandLink value="Back">
 							<f:ajax listener="#{classManagement.setDataClass(null)}"
 								render=":class_management:classes :class_management:class_detail"></f:ajax>
+							<f:ajax
+								listener="#{classManagement.displayAddStudent.set(true)}"></f:ajax>
 						</h:commandLink>
 					</h:panelGroup>
 				</h:panelGroup>

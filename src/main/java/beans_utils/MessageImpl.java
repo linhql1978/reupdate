@@ -1,4 +1,4 @@
-package message;
+package beans_utils;
 
 import javax.enterprise.context.RequestScoped;
 
