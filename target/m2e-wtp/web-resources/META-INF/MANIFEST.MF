@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Quang Linh
-Build-Jdk: 11.0.9
+Built-By: Synergix
+Build-Jdk: 11.0.8
 Created-By: Maven Integration for Eclipse
 
