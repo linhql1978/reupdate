@@ -24,8 +24,10 @@ public class StudentServiceImpl implements StudentService, Serializable {
 
 	@Override
 	public Collection<Student> getStudents() {
-		return session.createQuery("select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClass", Student.class).list()
-				.stream().collect(Collectors.toSet());
+		return session
+				.createQuery("select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClass",
+						Student.class)
+				.list().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -42,6 +44,15 @@ public class StudentServiceImpl implements StudentService, Serializable {
 	@Override
 	public void saveStudent(Student student) {
 		session.save(student);
+	}
+
+	@Override
+	public Collection<Student> sortedStudentById(Collection<Student> students) {
+		return students.stream().sorted((s1, s2) -> {
+			if (s1.getId() > s2.getId())
+				return 1;
+			return -1;
+		}).collect(Collectors.toList());
 	}
 
 }

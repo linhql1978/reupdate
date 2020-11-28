@@ -27,4 +27,17 @@ public class DataClassStudentServiceImpl implements DataClassStudentService, Ser
 		return null;
 	}
 
+	@Override
+	public void saveDataClassStudent(DataClassStudent dataClassStudent) {
+		session.save(dataClassStudent);
+	}
+
+	@Override
+	public void removeDataClassStudent(DataClassStudent dataClassStudent) {
+		session.createNativeQuery(
+				"delete from dataclassstudent dcs where dcs.dataclass_id=" + dataClassStudent.getDataClass().getId()
+						+ " and dcs.student_id=" + dataClassStudent.getStudent().getId())
+				.executeUpdate();
+	}
+
 }

@@ -1,9 +1,5 @@
 package utiltis;
 
-import org.hibernate.Session;
-
-import entities.Student;
-
 public class Test {
 	public static void main(String[] args) {
 		// ####
@@ -81,22 +77,22 @@ public class Test {
 //		session.getTransaction().commit();
 //		session.close();
 		// ###
-		Session session = HibernateUtils.getSessionFactory().openSession();
-		session.beginTransaction();
-//		DataClass dataClass = session.find(DataClass.class, (long) 22);
-//		Student student = session.find(Student.class, (long) 222);
-//		System.out.println(student == null);
-		System.out.println(session.createQuery("select s from Student s where s.id=100", Student.class).list().get(0));
-//		session.remove(dataClass);
-//		session.remove(student);
-//		session.detach(student);
-//		student.setName("xyzt121");
-//		session.update(student);
-//		student.setName("dsfsd");
-//		student = (Student) session.merge(student);
-//		student.setName("xyzt--");
-		session.getTransaction().commit();
-		session.close();
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+//		session.beginTransaction();
+////		DataClass dataClass = session.find(DataClass.class, (long) 22);
+////		Student student = session.find(Student.class, (long) 222);
+////		System.out.println(student == null);
+//		System.out.println(session.createQuery("select s from Student s where s.id=100", Student.class).list().get(0));
+////		session.remove(dataClass);
+////		session.remove(student);
+////		session.detach(student);
+////		student.setName("xyzt121");
+////		session.update(student);
+////		student.setName("dsfsd");
+////		student = (Student) session.merge(student);
+////		student.setName("xyzt--");
+//		session.getTransaction().commit();
+//		session.close();
 		// ###
 //		Session session = HibernateUtils.getSessionFactory().openSession();
 //		session.beginTransaction();
@@ -164,6 +160,11 @@ public class Test {
 //		Demo4 demo4 = session.find(Demo4.class, (long) 1);
 //		System.out.println(demo4.getDemo3().getId());
 
+		// /####
+
+		// ####
+		StringBuilder str = new StringBuilder("123");
+		System.out.println(str.toString().equals("123"));
 		// /####
 	}
 }

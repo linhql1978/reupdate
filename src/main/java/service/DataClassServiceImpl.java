@@ -61,4 +61,13 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 				Student.class).setParameter("keys", keys).list().stream().collect(Collectors.toSet());
 	}
 
+	@Override
+	public Collection<DataClass> sortedDataClassById(Collection<DataClass> dataClasses) {
+		return dataClasses.stream().sorted((dc1, dc2) -> {
+			if (dc1.getId() > dc2.getId())
+				return 1;
+			return -1;
+		}).collect(Collectors.toList());
+	}
+
 }

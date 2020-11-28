@@ -26,6 +26,8 @@ public class DateConverter implements Converter {
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		if (value == null)
+			return null;
 		return Convert.dateToString((Date) value);
 	}
 

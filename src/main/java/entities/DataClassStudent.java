@@ -51,6 +51,18 @@ public class DataClassStudent {
 		this.student = student;
 	}
 
+	public DataClassStudent() {
+		super();
+		this.dataClassStudentKey=new DataClassStudentKey();
+	}
+
+	public DataClassStudent(DataClass dataClass, Student student) {
+		super();
+		this.dataClassStudentKey = new DataClassStudentKey();
+		this.dataClass = dataClass;
+		this.student = student;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash("");

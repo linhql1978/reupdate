@@ -3,7 +3,6 @@ package embedded_key;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -14,9 +13,7 @@ public class DataClassStudentKey implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "class_id")
 	private long dataClassId;
-	@Column(name = "student_id")
 	private long studentId;
 
 	public long getDataClassId() {
@@ -32,6 +29,16 @@ public class DataClassStudentKey implements Serializable {
 	}
 
 	public void setStudentId(long studentId) {
+		this.studentId = studentId;
+	}
+
+	public DataClassStudentKey() {
+		super();
+	}
+
+	public DataClassStudentKey(long dataClassId, long studentId) {
+		super();
+		this.dataClassId = dataClassId;
 		this.studentId = studentId;
 	}
 

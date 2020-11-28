@@ -220,7 +220,7 @@
 						<h:inputText id="dataClass_monitor"
 							value="#{classManagement.dataClass.monitor}"
 							converter="studentConverter">
-							<f:ajax event="change"
+							<f:ajax event="keyup"
 								listener="#{classManagement.updateDataClass()}"
 								render=":class_management:class_detail"></f:ajax>
 						</h:inputText>
@@ -231,9 +231,10 @@
 							value="#{classManagement.dataClass.monitor.toString()}" />
 						<br />
 					</h:panelGroup>
-					<!--  --> <!-- ############################### -->
+					<!--  -->
+					<!-- ############################### -->
 					<h:panelGroup layout="block">
-						<h:commandLink value="Add Student">
+						<h:commandLink value="Add Student" rendered="false">
 						</h:commandLink>
 					</h:panelGroup>
 					<!--  -->
@@ -266,39 +267,32 @@
 								<h:outputText lang="en" value="#{student.joinDate}"
 									converter="dateConverter"></h:outputText>
 							</h:column>
-							<!-- ### -->
+							<h:column>
+								<f:facet name="header">Remove</f:facet>
+								<h:commandLink value="Remove">
+									<f:ajax render=":class_management:list_students"
+										listener="#{classManagement.removeStudentFromDataClass(student)}"></f:ajax>
+								</h:commandLink>
+							</h:column>
 						</h:dataTable>
 					</h:panelGroup>
 					<!--  -->
+					<!-- ######################################### -->
 					<h:panelGroup layout="block" id="add_student">
 						<h:panelGroup layout="block" rendered="true">
 							<h:inputText id="student_to_add"
 								value="#{classManagement.studentToAdd}"
 								converter="studentConverter" size="1">
-								<f:ajax event="keyup" render=":class_management:add_student"
-									listener="classManagement.checkStudentToAdd()" />
-									<f:ajax event="change"></f:ajax><!-- ########################### -->
+								<f:ajax event="keyup"
+									render=":class_management:add_student :class_management:list_students"
+									listener="#{classManagement.addStudentToDataClass()}" />
 							</h:inputText>
 							<h:message styleClass="message_error"
 								for=":class_management:student_to_add" />
+							<h:outputText style="color:red"
+								rendered="#{classManagement.addStudentToDataClassMessage!=''}"
+								value="#{classManagement.addStudentToDataClassMessage}" />
 							<br />
-							<h:panelGroup layout="block" id="student_view">
-								<h:panelGroup layout="block"
-									rendered="#{classManagement.studentToAdd!=null}">
-									<h:inputText value="#{classManagement.studentToAdd.name}"
-										size="1" disabled="true" />
-									<h:inputText
-										value="#{classManagement.studentToAdd.dateOfBirth}"
-										converter="dateConverter" size="1" disabled="true" />
-									<h:inputText value="#{classManagement.studentToAdd.email}"
-										size="1" disabled="true" />
-									<h:inputText
-										value="#{classManagement.studentToAdd.phoneNumber}" size="1"
-										disabled="true" />
-									<h:inputText value="#{classManagement.studentToAdd.joinDate}"
-										converter="dateConverter" size="1" disabled="true" />
-								</h:panelGroup>
-							</h:panelGroup>
 						</h:panelGroup>
 					</h:panelGroup>
 					<!--  -->

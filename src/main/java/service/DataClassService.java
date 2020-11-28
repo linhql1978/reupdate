@@ -18,4 +18,6 @@ public interface DataClassService {
 	void mergeDataClass(DataClass dataClass);
 
 	Collection<Student> getListStudentsOfDataClass(DataClass dataClass);
+
+	Collection<DataClass> sortedDataClassById(Collection<DataClass> dataClasses);
 }
