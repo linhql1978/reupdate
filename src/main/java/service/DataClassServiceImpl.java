@@ -57,7 +57,7 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 				.mapToLong(dcs -> dcs.getDataClassStudentKey().getStudentId()).boxed().collect(Collectors.toSet());
 
 		return session.createQuery(
-				"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClass where s.id in :keys",
+				"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses where s.id in :keys",
 				Student.class).setParameter("keys", keys).list().stream().collect(Collectors.toSet());
 	}
 

@@ -23,7 +23,7 @@ public class StudentConverter implements Converter {
 			return null;
 		try {
 			return session.createQuery(
-					"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClass where s.id="
+					"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses where s.id="
 							+ Long.valueOf(value),
 					Student.class).list().get(0);
 		} catch (NumberFormatException e) {

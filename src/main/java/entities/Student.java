@@ -83,7 +83,7 @@ public class Student implements Serializable {
 	@OneToMany(mappedBy = "monitor")
 	private Set<DataClass> dataClasses;
 
-	public Set<DataClass> getDataClass() {
+	public Set<DataClass> getDataClasses() {
 		if (dataClasses == null)
 			dataClasses = new HashSet<>();
 		return dataClasses;
