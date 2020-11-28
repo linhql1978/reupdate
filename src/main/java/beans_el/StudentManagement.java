@@ -37,8 +37,7 @@ public class StudentManagement implements Serializable {
 	}
 
 	public void updateStudent() {
-		if (student != null)
-			studentService.updateStudent(this.student);
+		studentService.updateStudent(this.student);
 	}
 
 	public void addStudent() {

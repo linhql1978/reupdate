@@ -163,8 +163,8 @@ public class Test {
 		// /####
 
 		// ####
-		StringBuilder str = new StringBuilder("123");
-		System.out.println(str.toString().equals("123"));
+//		StringBuilder str = new StringBuilder("123");
+//		System.out.println(str.toString().equals("123"));
 		// /####
 	}
 }

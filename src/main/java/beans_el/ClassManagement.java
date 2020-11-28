@@ -42,8 +42,7 @@ public class ClassManagement implements Serializable {
 	}
 
 	public void updateDataClass() {
-		if (dataClass != null)
-			dataClassService.updateDataClass(dataClass);
+		dataClassService.updateDataClass(dataClass);
 	}
 
 	public void addDataClass() {
@@ -66,8 +65,7 @@ public class ClassManagement implements Serializable {
 
 	public Collection<Student> getStudentsOfDataClass() {
 		if (studentsOfDataClass == null)
-			if (dataClass != null)
-				studentsOfDataClass = dataClassService.getListStudentsOfDataClass(dataClass);
+			studentsOfDataClass = dataClassService.getListStudentsOfDataClass(dataClass);
 		return studentService.sortedStudentById(studentsOfDataClass);
 	}
 
@@ -92,15 +90,15 @@ public class ClassManagement implements Serializable {
 	}
 
 	public void addStudentToDataClass() {
-		if (dataClass != null && studentToAdd != null && !studentsOfDataClass.contains(studentToAdd)) {
+		if (studentToAdd != null && !studentsOfDataClass.contains(studentToAdd)) {
 			dataClassStudentService.saveDataClassStudent(new DataClassStudent(dataClass, studentToAdd));
 			studentsOfDataClass.add(studentToAdd);
-		} else
+		} else if (studentToAdd != null)
 			addStudentToDataClassMessage.updateMessage();
 	}
 
 	public void removeStudentFromDataClass(Student student) {
-		if (dataClass != null && student != null && studentsOfDataClass.contains(student)) {
+		if (studentsOfDataClass.contains(student)) {
 			dataClassStudentService.removeDataClassStudent(new DataClassStudent(dataClass, student));
 			studentsOfDataClass.remove(student);
 		}
