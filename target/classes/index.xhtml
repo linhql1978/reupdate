@@ -219,7 +219,7 @@
 						<h:outputLabel value="Monitor"></h:outputLabel>
 						<h:inputText id="dataClass_monitor"
 							value="#{classManagement.dataClass.monitor}"
-							converter="studentConverter">
+							converter="#{studentConverter}">
 							<f:ajax event="change"
 								listener="#{classManagement.updateDataClass()}"
 								render=":class_management:class_detail"></f:ajax>
@@ -287,7 +287,7 @@
 							rendered="#{!classManagement.displayAddStudent.check()}">
 							<h:inputText id="student_to_add"
 								value="#{classManagement.studentToAdd}"
-								converter="studentConverter" size="1">
+								converter="#{studentConverter}" size="1">
 								<f:ajax event="change"
 									render=":class_management:add_student :class_management:list_students"
 									listener="#{classManagement.addStudentToDataClass()}" />

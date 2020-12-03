@@ -3,12 +3,10 @@ package service;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.inject.Inject;
-
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entities.DataClassStudent;
-import qualifier.HibernateSession;
 
 public class DataClassStudentServiceImpl implements DataClassStudentService, Serializable {
 
@@ -17,9 +15,8 @@ public class DataClassStudentServiceImpl implements DataClassStudentService, Ser
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	@HibernateSession
-	private Session session;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public Collection<DataClassStudent> getDataClassStudents() {
@@ -29,12 +26,12 @@ public class DataClassStudentServiceImpl implements DataClassStudentService, Ser
 
 	@Override
 	public void saveDataClassStudent(DataClassStudent dataClassStudent) {
-		session.save(dataClassStudent);
+		entityManager.persist(dataClassStudent);
 	}
 
 	@Override
 	public void removeDataClassStudent(DataClassStudent dataClassStudent) {
-		session.createNativeQuery(
+		entityManager.createNativeQuery(
 				"delete from dataclassstudent dcs where dcs.dataclass_id=" + dataClassStudent.getDataClass().getId()
 						+ " and dcs.student_id=" + dataClassStudent.getStudent().getId())
 				.executeUpdate();

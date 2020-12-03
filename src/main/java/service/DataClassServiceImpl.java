@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entities.DataClass;
 import entities.Student;
-import qualifier.HibernateSession;
 
 public class DataClassServiceImpl implements DataClassService, Serializable {
 
@@ -19,15 +17,14 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	@HibernateSession
-	private Session session;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public Collection<DataClass> getDataClasses() {
-		return session.createQuery(
+		return entityManager.createQuery(
 				"select dc from DataClass dc left join fetch dc.dataClassStudents left join fetch dc.monitor",
-				DataClass.class).list().stream().collect(Collectors.toSet());
+				DataClass.class).getResultList().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -38,17 +35,17 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 
 	@Override
 	public void saveDataClass(DataClass dataClass) {
-		session.save(dataClass);
+		entityManager.persist(dataClass);
 	}
 
 	@Override
 	public void updateDataClass(DataClass dataClass) {
-		session.update(dataClass);
+		entityManager.merge(dataClass);
 	}
 
 	@Override
 	public void mergeDataClass(DataClass dataClass) {
-		session.merge(dataClass);
+		entityManager.merge(dataClass);
 	}
 
 	@Override
@@ -56,9 +53,9 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 		Collection<Long> keys = dataClass.getDataClassStudents().stream()
 				.mapToLong(dcs -> dcs.getDataClassStudentKey().getStudentId()).boxed().collect(Collectors.toSet());
 
-		return session.createQuery(
+		return entityManager.createQuery(
 				"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses where s.id in :keys",
-				Student.class).setParameter("keys", keys).list().stream().collect(Collectors.toSet());
+				Student.class).setParameter("keys", keys).getResultList().stream().collect(Collectors.toSet());
 	}
 
 	@Override

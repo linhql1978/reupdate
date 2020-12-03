@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import entities.Student;
-import qualifier.HibernateSession;
 
 public class StudentServiceImpl implements StudentService, Serializable {
 
@@ -18,16 +16,14 @@ public class StudentServiceImpl implements StudentService, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Inject
-	@HibernateSession
-	private Session session;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public Collection<Student> getStudents() {
-		return session
-				.createQuery("select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses",
-						Student.class)
-				.list().stream().collect(Collectors.toSet());
+		return entityManager.createQuery(
+				"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses",
+				Student.class).getResultList().stream().collect(Collectors.toSet());
 	}
 
 	@Override
@@ -38,12 +34,12 @@ public class StudentServiceImpl implements StudentService, Serializable {
 
 	@Override
 	public void updateStudent(Student student) {
-		session.update(student);
+		entityManager.merge(student);
 	}
 
 	@Override
 	public void saveStudent(Student student) {
-		session.save(student);
+		entityManager.persist(student);
 	}
 
 	@Override
