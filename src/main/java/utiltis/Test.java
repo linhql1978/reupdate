@@ -1,11 +1,17 @@
 package utiltis;
 
+import org.hibernate.Session;
+
+import entities.Student;
+
 public class Test {
 	public static void main(String[] args) {
 		// ####
 //		Student student = new Student();
 //		Session session = HibernateUtils.getSessionFactory().openSession();
-//		session.saveOrUpdate(student);
+//		session.beginTransaction();
+//		session.merge(student);
+//		session.getTransaction().commit();
 //		session.close();
 //
 //		System.out.println(student.getId());
@@ -165,6 +171,102 @@ public class Test {
 		// ####
 //		StringBuilder str = new StringBuilder("123");
 //		System.out.println(str.toString().equals("123"));
+		// /####
+
+		// #### Entity instances retrieved by a query are in persistent state
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+////		session.beginTransaction();
+//		Student student = session.createQuery("select s from Student s where s.id=1", Student.class).getSingleResult();
+//		System.out.println(student.toString());
+//		student.setName("abcd");
+//		System.out.println(student.toString());
+////		session.getTransaction().commit();
+//		session.close();
+		// /####
+
+		// #### Projection
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+//		session.beginTransaction();
+//		Iterator dataClasses = session.createQuery("select s,dcs,s.name,s.id from Student s join s.dataClasses dcs")
+//				.getResultList().iterator();
+////		Student student;
+//		DataClass dc;
+//		while (dataClasses.hasNext()) {
+//			Object[] objects = (Object[]) dataClasses.next();
+//			if (objects.length > 2) {
+////				dc = (DataClass) objects[1];
+////				System.out.println(dc.toString());
+////				dc.setName("aaaaa");
+////				System.out.println(dc.toString());
+//				String str = (String) objects[2];
+//				System.out.println(str);
+//				long id = (long) objects[3];
+//				System.out.println(id);
+//				id += 10;
+//				System.out.println(id);
+//			}
+//		}
+//		session.getTransaction().commit();
+//		session.close();
+
+		// /####
+
+		// #### remove (persistent -> transient)
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+//		session.beginTransaction();
+//		DataClassStudent dcs = session
+//				.createQuery("select dcs from DataClassStudent dcs where dataclass_id=3 and student_id=2",
+//						DataClassStudent.class)
+//				.getSingleResult();
+//		System.out.println(session.contains(dcs));
+//		session.remove(dcs);
+//		System.out.println(session.contains(dcs));
+//		session.getTransaction().commit();
+//		session.close();
+
+		// /####
+
+		// #### Isolation transaction
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+//		session.beginTransaction();
+//		Session session1 = HibernateUtils.getSessionFactory().openSession();
+//		session1.beginTransaction();
+//		session.save(new Student());
+////		session.flush();
+//		session.getTransaction().commit();
+////		Student student = session.load(Student.class, 1L);
+////		System.out.println(student.toString() + ",0");
+////		student.setName("aaaa");
+////		System.out.println(student.toString() + ",0");
+//		Student student1 = session1.load(Student.class, 29L);
+//		System.out.println(student1.toString() + ",1");
+//		session1.getTransaction().commit();
+//		session.close();
+//		session1.close();
+		// /####
+
+		// #### flush before query
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+//		session.beginTransaction();
+////		session.setFlushMode(FlushModeType.COMMIT);
+//		Student student = session.find(Student.class, 20L);
+////		session.remove(student);
+//		student.setName("aaa");
+//		System.out
+//				.println(session.createQuery("select s from Student s where s.id=20", Student.class).getSingleResult());
+//		session.getTransaction().commit();
+//		session.close();
+
+		// /####
+
+		// ####
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		Session session1 = HibernateUtils.getSessionFactory().openSession();
+		System.out.println(session.find(Student.class, 2L) + ",0");
+		System.out.println(session1.find(Student.class, 2L) + ",1");
+		session.close();
+		session1.close();
+
 		// /####
 	}
 }
