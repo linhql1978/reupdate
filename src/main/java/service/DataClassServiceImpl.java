@@ -45,10 +45,6 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 //		return entityManager.createQuery(
 //				"select distinct dc from DataClass dc left join fetch dc.dataClassStudents left join fetch dc.monitor",
 //				DataClass.class).getResultList();
-
-//		return entityManager.createQuery(
-//				"select dc from DataClass dc left join fetch dc.dataClassStudents left join fetch dc.monitor",
-//				DataClass.class).getResultList().stream().collect(Collectors.toSet());
 	}
 
 	@Override

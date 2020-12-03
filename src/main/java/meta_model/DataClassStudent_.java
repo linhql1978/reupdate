@@ -12,4 +12,7 @@ public class DataClassStudent_ {
 
 	public static volatile SingularAttribute<DataClassStudent, DataClass> dataClass;
 	public static volatile SingularAttribute<DataClassStudent, Student> student;
+
+	public static final String DATACLASS = "dataClass";
+	public static final String STUDENT = "student";
 }

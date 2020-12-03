@@ -39,7 +39,6 @@ public class StudentServiceImpl implements StudentService, Serializable {
 
 	@Override
 	public Student getStudentById(long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
