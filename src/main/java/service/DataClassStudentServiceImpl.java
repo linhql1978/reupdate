@@ -17,7 +17,7 @@ public class DataClassStudentServiceImpl implements DataClassStudentService, Ser
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext(name = "sample")
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override

@@ -14,7 +14,7 @@ import entities.DataClass;
 @Named
 public class DataClassConverter implements Converter {
 
-	@PersistenceContext(name = "sample")
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override

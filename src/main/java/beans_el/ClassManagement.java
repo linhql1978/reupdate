@@ -106,6 +106,7 @@ public class ClassManagement implements Serializable {
 		if (studentToAdd != null && !studentsOfDataClass.contains(studentToAdd)) {
 			dataClassStudentService.saveDataClassStudent(new DataClassStudent(dataClass, studentToAdd));
 			studentsOfDataClass.add(studentToAdd);
+			dataClasses = null;
 		} else if (studentToAdd != null)
 			addStudentToDataClassMessage.updateMessage();
 	}
@@ -114,6 +115,7 @@ public class ClassManagement implements Serializable {
 		if (studentsOfDataClass.contains(student)) {
 			dataClassStudentService.removeDataClassStudent(new DataClassStudent(dataClass, student));
 			studentsOfDataClass.remove(student);
+			dataClasses = null;
 		}
 	}
 	// /####

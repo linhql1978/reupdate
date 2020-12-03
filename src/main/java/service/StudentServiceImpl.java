@@ -7,10 +7,17 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import entities.DataClass;
 import entities.Student;
+import meta_model.Student_;
 
 @Transactional
 public class StudentServiceImpl implements StudentService, Serializable {
@@ -20,7 +27,7 @@ public class StudentServiceImpl implements StudentService, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext(name = "sample")
+	@PersistenceContext
 	private EntityManager entityManager;
 
 	@Override
@@ -64,8 +71,17 @@ public class StudentServiceImpl implements StudentService, Serializable {
 		if (keys.isEmpty())
 			return new LinkedList<Student>();
 
-		return entityManager.createQuery("select distinct s from Student s where s.id in :keys", Student.class)
-				.setParameter("keys", keys).getResultList();
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Student> cq = cb.createQuery(Student.class);
+		Root<Student> studentRoot = cq.from(Student.class);
+		ParameterExpression<Collection> peKeys = cb.parameter(Collection.class);
+		Predicate conditionKey = studentRoot.get(Student_.ID).in(peKeys);
+		cq.select(studentRoot).where(conditionKey).distinct(true);
+		TypedQuery<Student> query = entityManager.createQuery(cq).setParameter(peKeys, keys);
+		return query.getResultList();
+
+//		return entityManager.createQuery("select distinct s from Student s where s.id in :keys", Student.class)
+//				.setParameter("keys", keys).getResultList();
 	}
 
 }

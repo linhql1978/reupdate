@@ -58,6 +58,10 @@ public class DataClass {
 	@OneToMany(mappedBy = "dataClass")
 	private Set<DataClassStudent> dataClassStudents;
 
+	public void setDataClassStudents(Set<DataClassStudent> dataClassStudents) {
+		this.dataClassStudents = dataClassStudents;
+	}
+
 	public Set<DataClassStudent> getDataClassStudents() {
 		if (dataClassStudents == null)
 			dataClassStudents = new HashSet<>();

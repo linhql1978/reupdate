@@ -21,4 +21,13 @@ public class Student_ {
 	public static volatile SingularAttribute<Student, Date> joinDate;
 	public static volatile SetAttribute<Student, DataClass> dataClasses;
 	public static volatile SingularAttribute<Student, DataClassStudent> dataClassStudents;
+
+	public static final String ID = "id";
+	public static final String NAME = "name";
+	public static final String DATEOFBIRTH = "dateOfBirth";
+	public static final String EMAIL = "email";
+	public static final String PHONENUMBER = "phoneNumber";
+	public static final String JOINDATE = "joinDate";
+	public static final String DATACLASSES = "dataClasses";
+	public static final String DATACLASSSTUDENTS = "dataClassStudents";
 }
