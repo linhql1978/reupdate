@@ -3,7 +3,6 @@ package service;
 import java.util.Collection;
 
 import entities.DataClass;
-import entities.Student;
 
 public interface DataClassService {
 
@@ -13,11 +12,7 @@ public interface DataClassService {
 
 	void saveDataClass(DataClass dataClass);
 
-	void updateDataClass(DataClass dataClass);
-
 	void mergeDataClass(DataClass dataClass);
-
-	Collection<Student> getListStudentsOfDataClass(DataClass dataClass);
 
 	Collection<DataClass> sortedDataClassById(Collection<DataClass> dataClasses);
 }

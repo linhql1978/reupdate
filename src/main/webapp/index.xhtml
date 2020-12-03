@@ -303,9 +303,9 @@
 					<h:panelGroup layout="block">
 						<h:commandLink value="Back">
 							<f:ajax listener="#{classManagement.setDataClass(null)}"
-								render=":class_management:classes :class_management:class_detail"></f:ajax>
-							<f:ajax
-								listener="#{classManagement.displayAddStudent.set(true)}"></f:ajax>
+								render=":class_management:classes :class_management:class_detail" />
+							<f:ajax listener="#{classManagement.displayAddStudent.set(true)}" />
+							<f:ajax listener="#{classManagement.clearStudentsOfDataClass()}" />
 						</h:commandLink>
 					</h:panelGroup>
 				</h:panelGroup>

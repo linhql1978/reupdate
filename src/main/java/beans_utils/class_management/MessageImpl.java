@@ -1,4 +1,4 @@
-package beans_utils;
+package beans_utils.class_management;
 
 import javax.enterprise.context.RequestScoped;
 

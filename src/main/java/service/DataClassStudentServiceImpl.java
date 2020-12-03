@@ -5,9 +5,11 @@ import java.util.Collection;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import entities.DataClassStudent;
 
+@Transactional
 public class DataClassStudentServiceImpl implements DataClassStudentService, Serializable {
 
 	/**
@@ -15,7 +17,7 @@ public class DataClassStudentServiceImpl implements DataClassStudentService, Ser
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext
+	@PersistenceContext(name = "sample")
 	private EntityManager entityManager;
 
 	@Override
@@ -26,7 +28,7 @@ public class DataClassStudentServiceImpl implements DataClassStudentService, Ser
 
 	@Override
 	public void saveDataClassStudent(DataClassStudent dataClassStudent) {
-		entityManager.persist(dataClassStudent);
+		entityManager.merge(dataClassStudent);
 	}
 
 	@Override

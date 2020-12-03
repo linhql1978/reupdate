@@ -9,8 +9,8 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import beans_utils.Display;
-import beans_utils.Message;
+import beans_utils.class_management.Display;
+import beans_utils.class_management.Message;
 import entities.DataClass;
 import entities.DataClassStudent;
 import entities.Student;
@@ -44,7 +44,7 @@ public class ClassManagement implements Serializable {
 	}
 
 	public void updateDataClass() {
-		dataClassService.updateDataClass(dataClass);
+		dataClassService.mergeDataClass(dataClass);
 	}
 
 	public void addDataClass() {
@@ -55,7 +55,7 @@ public class ClassManagement implements Serializable {
 
 	public Collection<DataClass> getDataClasses() {
 		if (dataClasses == null)
-			dataClasses = dataClassService.getDataClasses();
+			this.dataClasses = dataClassService.getDataClasses();
 		return dataClassService.sortedDataClassById(dataClasses);
 	}
 	// /####
@@ -65,10 +65,14 @@ public class ClassManagement implements Serializable {
 	private StudentService studentService;
 	private Collection<Student> studentsOfDataClass;
 
+	public void clearStudentsOfDataClass() {
+		this.studentsOfDataClass = null;
+	}
+
 	public Collection<Student> getStudentsOfDataClass() {
-		if (studentsOfDataClass == null)
-			studentsOfDataClass = dataClassService.getListStudentsOfDataClass(dataClass);
-		return studentService.sortedStudentById(studentsOfDataClass);
+		if (this.studentsOfDataClass == null)
+			this.studentsOfDataClass = studentService.getListStudentsOfDataClass(this.dataClass);
+		return this.studentService.sortedStudentById(this.studentsOfDataClass);
 	}
 
 	private Student studentToAdd;

@@ -2,14 +2,16 @@ package service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import entities.DataClass;
-import entities.Student;
 
+@Transactional
 public class DataClassServiceImpl implements DataClassService, Serializable {
 
 	/**
@@ -17,7 +19,7 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext
+	@PersistenceContext(name = "sample")
 	private EntityManager entityManager;
 
 	@Override
@@ -39,27 +41,14 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 	}
 
 	@Override
-	public void updateDataClass(DataClass dataClass) {
-		entityManager.merge(dataClass);
-	}
-
-	@Override
 	public void mergeDataClass(DataClass dataClass) {
 		entityManager.merge(dataClass);
 	}
 
 	@Override
-	public Collection<Student> getListStudentsOfDataClass(DataClass dataClass) {
-		Collection<Long> keys = dataClass.getDataClassStudents().stream()
-				.mapToLong(dcs -> dcs.getDataClassStudentKey().getStudentId()).boxed().collect(Collectors.toSet());
-
-		return entityManager.createQuery(
-				"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses where s.id in :keys",
-				Student.class).setParameter("keys", keys).getResultList().stream().collect(Collectors.toSet());
-	}
-
-	@Override
 	public Collection<DataClass> sortedDataClassById(Collection<DataClass> dataClasses) {
+		if (dataClasses == null)
+			return new LinkedList<DataClass>();
 		return dataClasses.stream().sorted((dc1, dc2) -> {
 			if (dc1.getId() > dc2.getId())
 				return 1;

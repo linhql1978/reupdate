@@ -14,7 +14,7 @@ import entities.DataClass;
 @Named
 public class DataClassConverter implements Converter {
 
-	@PersistenceContext
+	@PersistenceContext(name = "sample")
 	private EntityManager entityManager;
 
 	@Override
@@ -22,10 +22,9 @@ public class DataClassConverter implements Converter {
 		if (value == null || value.isEmpty())
 			return null;
 		try {
-			return entityManager.createQuery(
-					"select dc from DataClass dc left join fetch dc.dataClassStudents left join fetch dc.monitor where dc.id="
-							+ Long.valueOf(value),
-					DataClass.class).getResultList().get(0);
+			return entityManager
+					.createQuery("select dc from DataClass dc where dc.id=" + Long.valueOf(value), DataClass.class)
+					.getResultList().get(0);
 		} catch (NumberFormatException e) {
 			throw new ConverterException(new FacesMessage(value + " is not valid a DataClass ID"), e);
 		} catch (IndexOutOfBoundsException e) {

@@ -14,7 +14,7 @@ import entities.Student;
 @Named
 public class StudentConverter implements Converter {
 
-	@PersistenceContext
+	@PersistenceContext(name = "sample")
 	private EntityManager entityManager;
 
 	@Override
@@ -22,10 +22,8 @@ public class StudentConverter implements Converter {
 		if (value == null || value.isEmpty())
 			return null;
 		try {
-			return entityManager.createQuery(
-					"select s from Student s left join fetch s.dataClassStudents left join fetch s.dataClasses where s.id="
-							+ Long.valueOf(value),
-					Student.class).getResultList().get(0);
+			return entityManager.createQuery("select s from Student s where s.id=" + Long.valueOf(value), Student.class)
+					.getResultList().get(0);
 		} catch (NumberFormatException e) {
 			throw new ConverterException(new FacesMessage(value + " is not valid a Student ID"), e);
 		} catch (IndexOutOfBoundsException e) {
