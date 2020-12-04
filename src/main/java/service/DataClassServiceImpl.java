@@ -17,7 +17,7 @@ import javax.transaction.Transactional;
 import entities.DataClass;
 import meta_model.DataClass_;
 
-@Transactional
+@Transactional // indicate is CMT
 public class DataClassServiceImpl implements DataClassService, Serializable {
 
 	/**
@@ -28,10 +28,25 @@ public class DataClassServiceImpl implements DataClassService, Serializable {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+//	@Resource // with CMT not allow use operates of userTransaction inside it
+//	private UserTransaction userTransaction; // -> throw UserTransaction access is forbidden in the current context
+
 	@Override
 	public Collection<DataClass> getDataClasses() {
-//		DataClass dc = entityManager.find(DataClass.class, 1L); // demo auto-commit after every single SQL statement for 
+//		DataClass dc = entityManager.find(DataClass.class, 1L); // demo auto-commit after every single SQL statement for
 //		System.out.println(entityManager.contains(dc)); // Container-managed entity manager
+
+//		try { // PC not queue operates happen outside active transaction and throw exception
+//			entityManager.merge(dc); // PC can't run command without transaction inside BMT
+//			userTransaction.begin();
+//			entityManager.merge(dc); // if PC created inside transaction -> PC join to current transaction
+//			userTransaction.commit();
+//		} catch (SecurityException | IllegalStateException | RollbackException | HeuristicMixedException
+//				| HeuristicRollbackException | SystemException | NotSupportedException
+//				| javax.transaction.RollbackException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<DataClass> cq = cb.createQuery(DataClass.class);
